@@ -1,39 +1,37 @@
 // src/components/ProductCard.js
-import React, { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../features/cart/CartSlice';
 
-const ProductCard = ({ product }) => {
-  const { addToCart, cartItems } = useContext(CartContext);
-  const isInCart = cartItems.some(item => item.id === product.id);
+const ProductCard = ({ plant }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const isInCart = cartItems.find((item) => item.id === plant.id);
+
+  const handleAddToCart = () => {
+    dispatch(addItem(plant));
+  };
 
   return (
     <div style={{
       border: "1px solid #ccc",
       padding: 10,
-      width: 200,
       borderRadius: 8,
-      textAlign: "center",
-      backgroundColor: "#f9f9f9"
+      margin: 10,
+      width: 200,
+      textAlign: "center"
     }}>
       <img
-        src={product.image}
-        alt={product.name}
-        style={{ width: "100%", height: 150, objectFit: "cover", borderRadius: 4 }}
+        src={plant.image} // ✅ FIXED here
+        alt={plant.name}
+        width={150}
+        height={150}
+        style={{ objectFit: "cover", borderRadius: 8 }}
       />
-      <h4 style={{ margin: "10px 0" }}>{product.name}</h4>
-      <p style={{ margin: "5px 0" }}>${product.price.toFixed(2)}</p>
-      <button
-        onClick={() => addToCart(product)}
-        disabled={isInCart}
-        style={{
-          padding: "6px 12px",
-          backgroundColor: isInCart ? "#ccc" : "#4CAF50",
-          color: "white",
-          border: "none",
-          borderRadius: 4,
-          cursor: isInCart ? "not-allowed" : "pointer"
-        }}
-      >
+      <h3>{plant.name}</h3>
+      <p>${plant.price.toFixed(2)}</p>
+      <button onClick={handleAddToCart} disabled={!!isInCart}>
         {isInCart ? "Added" : "Add to Cart"}
       </button>
     </div>

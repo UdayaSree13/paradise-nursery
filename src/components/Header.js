@@ -1,13 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
-    <nav style={{ padding: 10, backgroundColor: "#cce5cc" }}>
-      <Link to="/" style={{ margin: 10 }}>Home</Link>
-      <Link to="/shop" style={{ margin: 10 }}>Shop</Link>
-      <Link to="/cart" style={{ margin: 10 }}>Cart</Link>
-    </nav>
+    <header style={{ display: 'flex', justifyContent: 'space-between', padding: 20, background: '#f0f0f0' }}>
+      <Link to="/" style={{ textDecoration: 'none', fontWeight: 'bold', fontSize: 24 }}>🌿 Paradise Nursery</Link>
+      <nav>
+        <Link to="/shop" style={{ marginRight: 20 }}>Shop</Link>
+        <Link to="/cart">🛒 Cart ({totalCount})</Link>
+      </nav>
+    </header>
   );
 };
 

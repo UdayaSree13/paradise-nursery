@@ -1,26 +1,26 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Shop from "./pages/Shop";
-import Checkout from "./pages/Checkout";
-import Cart from "./components/Cart";
-import { CartProvider } from "./context/CartContext";
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import ProductListingPage from './pages/ProductListingPage';
+import CartPage from './pages/CartPage';
+import Header from './components/Header';
+import ThankYou from './pages/ThankYou';
 
-function App() {
+
+
+const App = () => {
   return (
-    <CartProvider>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-        </Routes>
-      </Router>
-    </CartProvider>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<ProductListingPage />} />
+        <Route path="/cart" element={<CartPage />} />
+         <Route path="/thankyou" element={<ThankYou />} /> 
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
